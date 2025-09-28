@@ -1,41 +1,32 @@
 """Cracking the Coding Interview 1.1: determine whether a string has all unique characters.
 
-Implement whatever helpers you like, but make sure to expose at least two callables:
+Expose two callables when solving the exercise:
 
 1. ``has_unique_chars(text: str) -> bool``
-   - Return ``True`` when ``text`` contains no repeated characters.
-   - Return ``False`` otherwise.
-   - You may use any additional data structures.
+   - Return ``True`` only if ``text`` contains no repeated characters.
+   - Any auxiliary data structures are allowed.
 
 2. ``has_unique_chars_no_extra(text: str) -> bool``
-   - Same contract as above, but do not rely on extra data structures whose size grows with the
-     input (e.g., sets, dicts, lists). Constant-size helpers are permitted.
+   - Same contract as above, but avoid data structures whose size grows with the input
+     (constant-sized helpers are acceptable).
 
-Feel free to structure the module however you prefer—replace this docstring, add classes, etc.
-The tests import these two functions to validate your solution.
+Feel free to replace this module with any structure you prefer; the tests import only the
+functions named above.
 """
 
 
-def has_unique_chars(text:str) -> bool:
-   
-   cur_dict = {}
-   
-   for t in text:
-      if t not in cur_dict.keys():
-         cur_dict[t] = True
-      else:
-         return False
-   return True
-   
-   
-   
-def has_unique_chars_no_extra(text:str) -> bool:
-   # sort 
-   sort_text = sorted(text)
-   # 隣の文字が同じならfalse
-   for i in range(len(sort_text)-1):
-      if sort_text[i] == sort_text[i+1]:
-         return False
-   return True
-   
-   
+def has_unique_chars(text: str) -> bool:
+    cur_dict: dict[str, bool] = {}
+    for ch in text:
+        if ch in cur_dict:
+            return False
+        cur_dict[ch] = True
+    return True
+
+
+def has_unique_chars_no_extra(text: str) -> bool:
+    sorted_chars = sorted(text)
+    for idx in range(len(sorted_chars) - 1):
+        if sorted_chars[idx] == sorted_chars[idx + 1]:
+            return False
+    return True
